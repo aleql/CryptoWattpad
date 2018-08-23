@@ -2,9 +2,18 @@
 <head>
         <!-- <script src="../Js/main.js"></script> -->
         <script language="javascript" type="text/javascript" src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-        <script src="../Js/IPFS.js"></script>
+        <script language="javascript" type="text/javascript" src="../Js/IPFS.js"></script>
+        <!-- <script language="javascript" type="text/javascript" src="../Js/js_encrypt_test.js"></script> -->
 </head>
 <body>
-    <input type="file" id="file-upload" onchange="processFile(event)">
+    <form onsubmit="uploadBook()">
+            <input type="text" id="title">Titulo:<br>
+            <input type="text" id="author">Autor:<br>
+            <input type="text" id="descripcion">Descripcion:<br>
+            <input type="text" id="categorias">Categorias:<br>
+            <input type="number" id="precio">Precio:<br>
+            <input type="file" id="file-upload" onchange="processFile(event)"><br>  
+    </form>
+    
 </body>
 </html>

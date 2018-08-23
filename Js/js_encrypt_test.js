@@ -5,7 +5,7 @@ function downloadFile(file){
 
     hiddenElement.href = 'data:attachment/text,' + encodeURI(file);
     hiddenElement.target = '_blank';
-    hiddenElement.download = 'test.txt';
+    hiddenElement.download = 'test.pdf';
     hiddenElement.click();
 }
 
