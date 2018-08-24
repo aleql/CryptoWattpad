@@ -1,4 +1,3 @@
-
 // solium-disable linebreak-style
 pragma solidity ^0.4.19;
 
@@ -11,6 +10,7 @@ contract BookFactory {
     // Variables globales
     Book[] public books;
     string[] private private_keys;
+    string[] private ivs;
     mapping (uint => address) public bookToOwner;
 
     struct Book {
@@ -24,11 +24,12 @@ contract BookFactory {
     }
 
     
-    function uploadBook(string _title, string _author, string _description, string _categories, string _IPFShash, uint _price, string _private_key) public {
+    function uploadBook(string _title, string _author, string _description, string _categories, string _IPFShash, uint _price, string _private_key, string _iv) public {
         if (_price >= 0 && bytes(_author).length > 0 && bytes(_author).length > 0) {
             address _auth_address = msg.sender;
             uint id = books.push(Book(_title, _author, _description, _categories, _IPFShash, _price)) - 1;
             private_keys.push(_private_key);
+            ivs.push(_iv);
             bookToOwner[id] = _auth_address;
             emit bookAdded(1);
         } else { // falla
@@ -36,7 +37,7 @@ contract BookFactory {
         }
     }
 
-    function downloadBook(uint256 _bookId) public payable returns (string, string){
+    function downloadBook(uint256 _bookId) public payable returns (string, string, string){
         Book storage _dBook = books[_bookId];
         address _authAddress = bookToOwner[_bookId];
         uint price = _dBook.price;
@@ -45,8 +46,8 @@ contract BookFactory {
         // Repartir ganacias :D
         _authAddress.transfer(price);
         string storage _privateKey = private_keys[_bookId];
-        //emit bookDownload(_dBook.IPFS_hash, _privateKey);
-        return (_dBook.IPFS_hash, _privateKey);
+        string storage _iv = ivs[_bookId];
+        return (_dBook.IPFS_hash, _privateKey, _iv);
     }
     
 }

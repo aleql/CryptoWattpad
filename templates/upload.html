@@ -8,8 +8,7 @@
         <!-- Compiled and minified JavaScript -->
         <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
         <script language="javascript" type="text/javascript" src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
-        <script language="javascript" type="text/javascript" src="../Js/IPFS.js"></script>
-        <!-- <script language="javascript" type="text/javascript" src="../Js/js_encrypt_test.js"></script> -->
+        <script language="javascript" type="text/javascript" src="../Js/js_encrypt.js"></script> 
     </head>
 <body>
         <div class="row">
@@ -20,7 +19,6 @@
                         <li><i class="large material-icons right-align">accessibility</i></li>
                     </ul>
                     <ul id="nav-mobile" class="right hide-on-med-and-down blue-grey darken-2">
-                    <li><a href="#">Iniciar sesión&ensp;</a></li>
                     </ul>
                 </div>
             </nav>
@@ -64,7 +62,7 @@
                         <input type="file">
                         </div>
                         <div class="file-path-wrapper">
-                        <input id="file-upload" class="file-path validate" placeholder="Sube tu libro en formato txt aquí" onchange="processFile(event)">
+                        <input type="file" id="file-upload" class="file-path" onchange="encryptFile(event)"><p>Sube tu libro en formato txt aquí</p>
                         </div>
                     </div>
                 </div>
@@ -81,6 +79,8 @@
                         </button>
                     </div>
                 </div>
+                <input type="hidden" id="pkey">
+                <input type="hidden" id="iv">
             </form>
         </div>                          
     </body>

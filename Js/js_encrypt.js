@@ -1,18 +1,23 @@
 
-function downloadFile(file, file_name, uri){
+function downloadFile(file, file_name){
     // console.log(encodeURI(file));
     var hiddenElement = document.createElement('a');
-
-    if (uri) {
-        hiddenElement.href = 'data:attachment/text,' + encodeURI(file);
-    } else {
-        hiddenElement.href = 'data:attachment/text,' + file;
-    }
+    hiddenElement.href = 'data:attachment/text,' + file;
     hiddenElement.target = '_blank';
     hiddenElement.download = file_name + '_encrypted.txt';
     hiddenElement.click();
 }
 
+function downloadFileHidden(){
+    // console.log(encodeURI(file));
+    var file = document.getElementById("plaintext").value
+    var file_name = document.getElementById("fileName").value;
+    var hiddenElement = document.createElement('a');
+    hiddenElement.href = 'data:attachment/text,' + encodeURI(file);
+    hiddenElement.target = '_blank';
+    hiddenElement.download = file_name + '_encrypted.txt';
+    hiddenElement.click();
+}
 // Funciones para transformar arreglo de bytes en str y viceversa
 
 // Transfrona un array buffer a uint16, y eso se pasa a un str
@@ -63,7 +68,7 @@ function str2uint8(str) {
 // Encriptar archivo
 function encryptFile(evt) {
     // get file name
-    var fileInput = document.getElementById('book_file');
+    var fileInput = document.getElementById('file-upload');
     var fileName = fileInput.value.split(/(\\|\/)/g).pop().split('.')[0];
 
     // Leer y encriptar archivo
@@ -99,7 +104,7 @@ function encryptFile(evt) {
         // Descargar archivo encriptado
         const plaintext = ab2str(encryptedFile);
         
-        downloadFile(plaintext, fileName, false);
+        downloadFile(plaintext, fileName);
     }
     reader.readAsText(file);
 }
@@ -138,8 +143,10 @@ function desencryptFile(evt) {
         });;
         const plaintext = new TextDecoder().decode(desencryptedFile);
 
-        downloadFile(plaintext, fileName, true);
-
+        // Guardar variables para descargar on click
+        document.getElementById("plaintext").value = plaintext;
+        document.getElementById("fileName").value = fileName;
+        //downloadFile(plaintext, fileName, true);
     }
     reader.readAsText(file);
 }
