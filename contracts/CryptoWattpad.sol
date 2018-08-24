@@ -24,7 +24,7 @@ contract BookFactory {
     }
 
     
-    function uploadBook(string _title, string _author, string _description, string _categories, string _IPFShash, uint _price, string _private_key, string _iv) public {
+    function uploadBook(string _title, string _author, string _description, string _categories, uint _price, string _IPFShash, string _private_key, string _iv) public {
         if (_price >= 0 && bytes(_author).length > 0 && bytes(_author).length > 0) {
             address _auth_address = msg.sender;
             uint id = books.push(Book(_title, _author, _description, _categories, _IPFShash, _price)) - 1;

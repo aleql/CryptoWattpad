@@ -106,12 +106,12 @@ function displayAllBooks() {
   }
 }
 
-function createNewBook(title, author, description, categories, price) {
+function createNewBook(title, author, description, categories, price, IPFS_hash, private_key, iv) {
     // This is going to take a while, so update the UI to let the user know
     // the transaction has been sent
     $("#txStatus").text("Creating new book on the blockchain. This may take a while...");
     // Send the tx to our contract: ||| TODO: FALTA IPFS HASH POR AQUI |||
-    return cryptoWattpad.methods.createNewBook(title, author, description, categories, price)
+    return cryptoWattpad.methods.uploadBook(title, author, description, categories, price, IPFS_hash, private_key, iv)
     .send({ from: userAccount })
     .on("receipt", function(receipt) {
     $("#txStatus").text("Successfully created " + name + "!");
@@ -145,12 +145,14 @@ function buyBook(bookId, price) {
   });
 }
 
-function uploadBook() {
+function uploadNewBook() {
   var titulo = document.getElementById("titulo").value;
   var autor = document.getElementById("autor").value;
   var descripcion = document.getElementById("descripcion").value;
   var categorias = document.getElementById("categorias").value;
   var precio = document.getElementById("precio").value;
   var IPFS_hash = document.getElementById("IPFS_hash").value;
-  createNewBook(titulo, autor, descripcion, categorias, precio); // TODO faltan argumentos
+  var pkey = document.getElementById("pkey").value;
+  var iv = document.getElementById("iv").value;
+  createNewBook(titulo, autor, descripcion, categorias, precio, IPFS_hash, pkey, iv); // TODO faltan argumentos
 }
