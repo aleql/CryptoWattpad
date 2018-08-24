@@ -1,0 +1,87 @@
+<html>
+    <head>
+        <meta charset="UTF-8">
+        <!-- <script src="../Js/main.js"></script> -->
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+        <script language="javascript" type="text/javascript" src="https://requirejs.org/docs/release/2.3.5/minified/require.js"></script>
+        <script language="javascript" type="text/javascript" src="../Js/IPFS.js"></script>
+        <!-- <script language="javascript" type="text/javascript" src="../Js/js_encrypt_test.js"></script> -->
+    </head>
+<body>
+        <div class="row">
+            <nav>
+                <div class="nav-wrapper blue-grey darken-2">
+                    <a href="#" class="brand-logo">&ensp;&ensp;CryptoWattpad</a>
+                    <ul id="nav-mobile" class="left hide-on-med-and-down blue-grey darken-2">
+                        <li><i class="large material-icons right-align">accessibility</i></li>
+                    </ul>
+                    <ul id="nav-mobile" class="right hide-on-med-and-down blue-grey darken-2">
+                    <li><a href="#">Iniciar sesión&ensp;</a></li>
+                    </ul>
+                </div>
+            </nav>
+        </div>
+        <div class="row">
+            <form class="col s12 m4 l6 offset-m2 l4 offset-l3" onsubmit="uploadBook()">
+                <div class="row">
+                        <div class="input-field col s12">
+                        <input id="titulo" type="text" class="validate">
+                        <label for="titulo">Título</label>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                        <input id="autor" type="text" class="validate">
+                        <label for="autor">Autor</label>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                        <textarea id="descripcion" class="materialize-textarea"></textarea>
+                        <label for="descripcion">Descripción</label>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                        <textarea id="categorias" class="materialize-textarea"></textarea>
+                        <label for="categorias">Categorías</label>
+                        </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                        <input id="precio" type="number" class="validate">
+                        <label for="precio">Precio</label>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="file-field input-field">
+                        <div class="btn">
+                        <span>Encriptar Libro</span>
+                        <input type="file">
+                        </div>
+                        <div class="file-path-wrapper">
+                        <input id="file-upload" class="file-path validate" placeholder="Sube tu libro en formato txt aquí" onchange="processFile(event)">
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                        <div class="input-field col s12">
+                        <input id="IPFS_hash" type="text" class="validate">
+                        <label for="IPFS_hash">Ingresar IPFS hash</label>
+                        </div>
+                </div>
+                <div class="row">
+                    <div class="input-field col s12">
+                        <button class="btn teal waves-effect waves-light right" type="submit" name="action">Aceptar
+                        <i class="mdi-content-send right"></i>
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>                          
+    </body>
+</html>
