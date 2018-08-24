@@ -47,6 +47,7 @@ contract BookFactory {
         _authAddress.transfer(price);
         string storage _privateKey = private_keys[_bookId];
         string storage _iv = ivs[_bookId];
+        //emit bookDownload(_dBook.IPFS_hash, _privateKey);
         return (_dBook.IPFS_hash, _privateKey, _iv);
     }
     

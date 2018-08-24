@@ -1,8 +1,11 @@
 var cryptoWattpad;
+var userAccount;
 
 function startApp() {
   var cryptoWattpadAddress = "YOUR_CONTRACT_ADDRESS";
   cryptoWattpad = new web3js.eth.Contract(cryptoWattpadABI, cryptoWattpadAddress);
+
+  userAccount = web3.eth.accounts[0];
 
   // Actualizar ventana
   getAllBooks()
@@ -54,7 +57,7 @@ function displayAllBooks() {
             `<p style="white-space: pre-wrap;">Descripción: ${book.description} </p>`+
             `<p style="white-space: pre-wrap;">Categorías: ${book.categories} </p>`+
             `<p style="white-space: pre-wrap;">Precio: $${book.price} </p>`+
-            `<a href="#modal"`+id+` class="secondary-content waves-effect waves-light btn modal-trigger" onclick="OpenModal(1)"><i class="material-icons left">attach_money</i>Comprar</a>`+
+            `<a href="#modal"`+id+` class="secondary-content waves-effect waves-light btn modal-trigger" onclick=buyBook(` + id + `)><i class="material-icons left">attach_money</i>Comprar</a>`+
             ` </li>`+
             `<form class="col s12 m4 l6 offset-m2 l4 offset-l3" onsubmit="">`+
             `<div id="modal"`+id+` class="modal">`+
@@ -79,7 +82,7 @@ function displayAllBooks() {
             `<p style="white-space: pre-wrap;">Descripción: ${book.description} </p>`+
             `<p style="white-space: pre-wrap;">Categorías: ${book.categories} </p>`+
             `<p style="white-space: pre-wrap;">Precio: $${book.price} </p>`+
-            `<a href="#modal"`+id+` class="secondary-content waves-effect waves-light btn modal-trigger" onclick="OpenModal(1)"><i class="material-icons left">attach_money</i>Comprar</a>`+
+            `<a href="#modal"`+id+` class="secondary-content waves-effect waves-light btn modal-trigger" onclick=buyBook(` + id + `)><i class="material-icons left">attach_money</i>Comprar</a>`+
             ` </li>`+
             `<form class="col s12 m4 l6 offset-m2 l4 offset-l3" onsubmit="">`+
             `<div id="modal"`+id+` class="modal">`+
@@ -120,13 +123,20 @@ function createNewBook(title, author, description, categories, price) {
 
 function buyBook(bookId) {
     $("#txStatus").text("Proceding to book purchase...");
+    
     return cryptoWattpad.methods.downloadBook(bookId)
     .send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") }) // MANDAR PRECIO QUE APARECE DEL LIBRO
     .on("receipt", function(receipt) {
       $("#txStatus").text("BOOK SUCCESFUL BOUGHT");
       })
     .then(function (returnValue) {
-        // DESencriptar libro :O
+        // Asingar variables de retorno a inputs escondidos
+        $('#pkey').attr('value', returnValue._privateKey);
+        $('#iv').attr('value', returnValue._iv);
+
+        // Abrir modal correspondiente:
+        $("#modal" + bookId).modal('open'); 
+        //$("#modal" + bookId).attr("onclick","OpenModal(" + bookId + ")");
     })
     .on("error", function(error) {
       $("#txStatus").text(error);
