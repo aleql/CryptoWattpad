@@ -11,8 +11,6 @@ contract BookFactory {
     // Variables globales
     Book[] public books;
     string[] private private_keys;
-    uint private comission = 10;
-    address private CryptoWattpadAddress;
     mapping (uint => address) public bookToOwner;
 
     struct Book {
@@ -42,12 +40,10 @@ contract BookFactory {
         Book storage _dBook = books[_bookId];
         address _authAddress = bookToOwner[_bookId];
         uint price = _dBook.price;
-        uint commisionValue = price*(comission/100);
-        require(msg.value == price + commisionValue, "Se transfirio menos del monto requerido");
+        require(msg.value == price, "Se transfirio menos del monto requerido");
         
         // Repartir ganacias :D
         _authAddress.transfer(price);
-        CryptoWattpadAddress.transfer(commisionValue);
         string storage _privateKey = private_keys[_bookId];
         //emit bookDownload(_dBook.IPFS_hash, _privateKey);
         return (_dBook.IPFS_hash, _privateKey);
