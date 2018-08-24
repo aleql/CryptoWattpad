@@ -31,7 +31,7 @@ function getBookDetails(id) {
 }
 
 function bookToOwner(owner) {
-   return cryptoWattpad.methods.zombieToOwner(id).call
+   return cryptoWattpad.methods.bookToOwner(id).call
 }
 
 function displayAllBooks() {

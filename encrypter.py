@@ -69,3 +69,9 @@ def decrypt_file(key, in_filename, out_filename=None, chunksize=24*1024):
                 outfile.write(decryptor.decrypt(chunk))
 
             outfile.truncate(origsize)
+            
+if __name__ == "__main__":
+	key = RSA.generate(2048)
+	encrypt_file('C:\\descargas\\gru.pdf', key)
+
+
