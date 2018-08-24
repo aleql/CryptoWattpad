@@ -144,3 +144,13 @@ function buyBook(bookId, price) {
     $("#txStatus").text(error);
   });
 }
+
+function uploadBook() {
+  var titulo = document.getElementById("titulo").value;
+  var autor = document.getElementById("autor").value;
+  var descripcion = document.getElementById("descripcion").value;
+  var categorias = document.getElementById("categorias").value;
+  var precio = document.getElementById("precio").value;
+  var IPFS_hash = document.getElementById("IPFS_hash").value;
+  createNewBook(titulo, autor, descripcion, categorias, precio); // TODO faltan argumentos
+}
