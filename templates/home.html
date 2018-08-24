@@ -3,14 +3,99 @@
   <head>
     <meta charset="UTF-8">
     <title>CryptoWattpad front-end</title>
-    <script language="javascript" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <!-- Compiled and minified JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script language="javascript" type="text/javascript" src="web3.min.js"></script>
     <script language="javascript" type="text/javascript" src="cryptoWattpad_abi.js"></script>
     <script language="javascript" type="text/javascript" src="main.js"></script>
+    <!-- <script src="../Js/main.js"></script> -->
+
+    <script>
+      function OpenModal(id) {
+        $('#modal' + id).openModal();
+      }
+    </script>
   </head>
   <body>
+      <div class="row">
+      <nav>
+          <div class="nav-wrapper blue-grey darken-2">
+            <a href="#" class="brand-logo">&ensp;&ensp;CryptoWattpad</a>
+            <ul id="nav-mobile" class="left hide-on-med-and-down blue-grey darken-2">
+                <li><i class="large material-icons right-align">accessibility</i></li>
+              </ul>
+            <ul id="nav-mobile" class="right hide-on-med-and-down blue-grey darken-2">
+              <li><a href="#">Iniciar sesión&ensp;</a></li>
+            </ul>
+          </div>
+      </nav>
+      </div>
+      <div class="row">
+        <div class="col s12 m6 l8 offset-m4 l4 offset-l5">
+        <a href="upload.html" class="waves-effect waves-light btn"><i class="large material-icons left">file_upload</i>Subir un libro</a>
+      </div>
+      <div class="row">
 
-    <div id="books"></div>
+     <div id="books">
+        <div class="row">
+         <div class="col s6">
+        <ul class="collection" id="books-left">
+            <li class="collection-item avatar">
+                <i class="material-icons circle">import_contacts</i>
+                <span class="title">Título:</span>
+                <p style="white-space: pre-wrap;">Autor: </p>
+                <p style="white-space: pre-wrap;">Descripción: </p>
+                <p style="white-space: pre-wrap;">Categorías: </p>
+                <p style="white-space: pre-wrap;">Precio: $ </p>
+                <a href="#modal1" class="secondary-content waves-effect waves-light btn modal-trigger" onclick="OpenModal(1)"><i class="material-icons left">attach_money</i>Comprar</a>
+              </li>
+              <form class="col s12 m4 l6 offset-m2 l4 offset-l3" onsubmit="">
+              <div id="modal1" class="modal">
+                  <div class="modal-content">
+                    <h4>Compra exitosa!</h4>
+                    <p>IPFS hash:</p>
+                    
+                      <div class="row">
+                        <div class="file-field input-field">
+                            <div class="btn">
+                            <span>Desencriptar Libro</span>
+                            <input type="file">
+                            </div>
+                            <div class="file-path-wrapper">
+                            <input id="file-upload" class="file-path validate" placeholder="Sube tu libro encriptado aquí" onchange="">
+                            </div>
+                        </div>
+                    </div>
+                     
+                  </div>
+                  <div class="modal-footer">
+                    <a href="#!" class="modal-close waves-effect teal btn" type="submit" name="action">Descargar</a>
+                  </div>
+                </div>
+              </form>
+          </ul>
+          </div>
+          <div class="col s6">
+            <ul class="collection"  id="books-right">
+                <li class="collection-item avatar">
+                    <i class="material-icons circle">import_contacts</i>
+                    <span class="title">Título:</span>
+                    <p style="white-space: pre-wrap;">Autor: </p>
+                    <p style="white-space: pre-wrap;">Descripción: </p>
+                    <p style="white-space: pre-wrap;">Categorías: </p>
+                    <p style="white-space: pre-wrap;">Precio: $ </p>
+                    <a href="#!" class="secondary-content waves-effect waves-light btn"><i class="material-icons left">attach_money</i>Comprar</a>
+                  </li>   
+            </ul>
+          </div>
+
+     </div>
+     </div>
+     </div>
 
   </body>
 </html>
