@@ -1,12 +1,18 @@
 var cryptoWattpad;
+var userAccount;
 
 function startApp() {
   var cryptoWattpadAddress = "YOUR_CONTRACT_ADDRESS";
   cryptoWattpad = new web3js.eth.Contract(cryptoWattpadABI, cryptoWattpadAddress);
-
-  // Actualizar ventana
-  getAllBooks()
-      .then(displayBooks);
+  var accountInterval = setInterval(function() {
+    // Check if account has changed
+    if (web3.eth.accounts[0] !== userAccount) {
+      userAccount = web3.eth.accounts[0];
+      // Actualizar ventana
+    getAllBooks()
+    .then(displayBooks);
+    }
+  }, 100);
 }
 
 window.addEventListener('load', function() {
@@ -118,17 +124,17 @@ function createNewBook(title, author, description, categories, price) {
     });
 }
 
-function buyBook(bookId) {
-    $("#txStatus").text("Proceding to book purchase...");
-    return cryptoWattpad.methods.downloadBook(bookId)
-    .send({ from: userAccount, value: web3js.utils.toWei("0.001", "ether") }) // MANDAR PRECIO QUE APARECE DEL LIBRO
-    .on("receipt", function(receipt) {
-      $("#txStatus").text("BOOK SUCCESFUL BOUGHT");
-      })
-    .then(function (returnValue) {
-        // DESencriptar libro :O
+function buyBook(bookId, price) {
+  $("#txStatus").text("Proceding to book purchase...");
+  return cryptoWattpad.methods.downloadBook(bookId)
+  .send({ from: userAccount, value: price }) // MANDAR PRECIO QUE APARECE DEL LIBRO
+  .on("receipt", function(receipt) {
+    $("#txStatus").text("BOOK SUCCESFUL BOUGHT");
     })
-    .on("error", function(error) {
-      $("#txStatus").text(error);
-    });
+  .then(function (returnValue) {
+      // DESencriptar libro :O
+  })
+  .on("error", function(error) {
+    $("#txStatus").text(error);
+  });
 }
