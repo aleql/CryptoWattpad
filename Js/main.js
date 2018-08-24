@@ -42,19 +42,61 @@ function displayAllBooks() {
   var ids =  cryptoWattpad.methods.books().call();
   for (id of ids) {
     getBookDetails(id)
-      .then(function(details) {
+      .then(function(book) {
         // Using ES6's "template literals" to inject variables into the HTML.
         // Append each one to our #book div
-        $("#books").append(`<div class="book"` + id + `>` +
-          `<ul>` + 
-            `<li>Title: ${book.title}</li>` +
-            `<li>Author: ${book.author}</li>` +
-            `<li>Descrition: ${book.description}</li>` +
-            `<li>Categories: ${book.categories}</li>` +
-            `<li>Price: ${book.price}</li>` +
-          `</ul>` +
-        `</div>`);
-      });
+        if (book_cnt % 2 == 1) {
+          $("#books-left").append(
+            `<li class="collection-item avatar" id="book-"`+id+`></li>`+
+            `<i class="material-icons circle">import_contacts</i>` + 
+            `<span class="title"> Título: ${book.title} </span>` +
+            `<p style="white-space: pre-wrap;">Autor:  ${book.author} </p>`+
+            `<p style="white-space: pre-wrap;">Descripción: ${book.description} </p>`+
+            `<p style="white-space: pre-wrap;">Categorías: ${book.categories} </p>`+
+            `<p style="white-space: pre-wrap;">Precio: $${book.price} </p>`+
+            `<a href="#modal"`+id+` class="secondary-content waves-effect waves-light btn modal-trigger" onclick="OpenModal(1)"><i class="material-icons left">attach_money</i>Comprar</a>`+
+            ` </li>`+
+            `<form class="col s12 m4 l6 offset-m2 l4 offset-l3" onsubmit="">`+
+            `<div id="modal"`+id+` class="modal">`+
+            `<div class="modal-content">`+
+            `<h4>Compra exitosa!</h4>` +
+            `<p>IPFS hash: ${book.IPFS_hash}</p>`+
+            `<div class="row">`+
+            `<div class="file-field input-field">`+
+            `<div class="btn"><span>Desencriptar Libro</span><input type="file"></div>`+
+            `<div class="file-path-wrapper">`+
+            `<input id="file-upload" class="file-path validate" placeholder="Sube tu libro encriptado aquí" onchange="">`+
+            `</div></div></div>`+
+            `<div class="modal-footer">`+
+            `<a href="#!" class="modal-close waves-effect teal btn" type="submit" name="action">Descargar</a>`+
+            `</div></div></form>`);
+        } else {
+          $("#books-right").append(
+            `<li class="collection-item avatar" id="book-"`+id+`></li>`+
+            `<i class="material-icons circle">import_contacts</i>` + 
+            `<span class="title"> Título: ${book.title} </span>` +
+            `<p style="white-space: pre-wrap;">Autor:  ${book.author} </p>`+
+            `<p style="white-space: pre-wrap;">Descripción: ${book.description} </p>`+
+            `<p style="white-space: pre-wrap;">Categorías: ${book.categories} </p>`+
+            `<p style="white-space: pre-wrap;">Precio: $${book.price} </p>`+
+            `<a href="#modal"`+id+` class="secondary-content waves-effect waves-light btn modal-trigger" onclick="OpenModal(1)"><i class="material-icons left">attach_money</i>Comprar</a>`+
+            ` </li>`+
+            `<form class="col s12 m4 l6 offset-m2 l4 offset-l3" onsubmit="">`+
+            `<div id="modal"`+id+` class="modal">`+
+            `<div class="modal-content">`+
+            `<h4>Compra exitosa!</h4>` +
+            `<p>IPFS hash: ${book.IPFS_hash}</p>`+
+            `<div class="row">`+
+            `<div class="file-field input-field">`+
+            `<div class="btn"><span>Desencriptar Libro</span><input type="file"></div>`+
+            `<div class="file-path-wrapper">`+
+            `<input id="file-upload" class="file-path validate" placeholder="Sube tu libro encriptado aquí" onchange="">`+
+            `</div></div></div>`+
+            `<div class="modal-footer">`+
+            `<a href="#!" class="modal-close waves-effect teal btn" type="submit" name="action">Descargar</a>`+
+            `</div></div></form>`);
+        }
+        });
   }
 }
 
